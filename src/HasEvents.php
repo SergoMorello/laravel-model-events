@@ -1,6 +1,6 @@
 <?php
 
-namespace SSS\Laravel\ModelEvents;
+namespace SME\Laravel\ModelEvents;
 
 trait HasEvents {
 

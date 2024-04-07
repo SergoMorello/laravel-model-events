@@ -1,5 +1,5 @@
 {
-    "name": "sss/laravel-model-events",
+    "name": "sme/laravel-model-events",
     "type": "library",
     "license": "MIT",
 	"description": "",
@@ -9,7 +9,7 @@
 	],
     "autoload": {
         "psr-4": {
-            "SSS\\Laravel\\ModelEvents\\": "src/"
+            "SME\\Laravel\\ModelEvents\\": "src/"
         }
     },
     "authors": [

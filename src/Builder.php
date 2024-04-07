@@ -1,6 +1,6 @@
 <?php
 
-namespace SSS\Laravel\ModelEvents;
+namespace SME\Laravel\ModelEvents;
 
 use Illuminate\Database\Eloquent\Builder as LaravelDatabaseBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
