@@ -1,9 +1,10 @@
 {
-    "name": "sme/laravel-model-events",
+    "name": "sme/laravel-model-life-events",
     "type": "library",
     "license": "MIT",
 	"description": "",
 	"keywords": [
+		"live cycle",
 		"model events",
 		"laravel"
 	],
