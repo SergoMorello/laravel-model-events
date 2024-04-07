@@ -5,6 +5,7 @@ namespace SME\Laravel\ModelEvents;
 use Illuminate\Database\Eloquent\Builder as LaravelDatabaseBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\Concerns\HasEvents;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Events\Dispatcher;
 
 class Builder extends LaravelDatabaseBuilder {
@@ -19,16 +20,25 @@ class Builder extends LaravelDatabaseBuilder {
 	protected static $dispatcher;
 	
 	/**
-	 * Model Name
+	 * Current Model
+	 *
+	 * @var Model
+	 */
+	private $currentModel;
+	
+	/**
+	 * Model Class Name
 	 *
 	 * @var string
 	 */
-	private string $modelName;
+	private $modelClass;
 	
-	public function __construct(QueryBuilder $query, Dispatcher $dispatcher, string $modelName) {
+	public function __construct(QueryBuilder $query, Dispatcher $dispatcher, Model $model) {
 		parent::__construct($query);
 		static::setEventDispatcher($dispatcher);
-		$this->modelName = $modelName;
+		
+		$this->currentModel = $model;
+		$this->modelClass = get_class($model);
 	}
 
 	/**
@@ -48,9 +58,9 @@ class Builder extends LaravelDatabaseBuilder {
         // will attempt to fire a custom, object based event for the given event. If that
         // returns a result we can return that result, or we'll call the string events.
         $method = $halt ? 'until' : 'dispatch';
-
+		
         return ! empty($result) ? $result : static::$dispatcher->{$method}(
-            "eloquent.{$event}: ".$this->modelName, $this
+            "eloquent.{$event}: ".$this->modelClass, $this->currentModel
         );
     }
 
@@ -60,11 +70,11 @@ class Builder extends LaravelDatabaseBuilder {
      * @return mixed
      */
 	public function delete() {
-		$this->emitModelEvent('deleting');
+		$this->emitModelEvent('deleting', false);
 
 		$delete = parent::delete();
-
-		$this->emitModelEvent('deleted');
+		
+		$this->emitModelEvent('deleted', false);
 		
 		return $delete;
 	}
@@ -76,11 +86,11 @@ class Builder extends LaravelDatabaseBuilder {
      * @return int
      */
 	public function update(array $values) {
-		$this->emitModelEvent('updating');
+		$this->emitModelEvent('updating', false);
 		
 		$update = parent::update($values);
 
-		$this->emitModelEvent('updated');
+		$this->emitModelEvent('updated', false);
 		
 		return $update;
 	}
