@@ -48,7 +48,7 @@ public static function deletePost(int $post_id) {
 #### To use the delete or update methods without additional first, find, etc. methods. You can use trait "HasEvents" in your models class
 
 ```php
-use SME\Laravel\ModelEvents\HasEvents;
+use SME\Laravel\Model\HasEvents;
 
 class Posts extends Model
 {
