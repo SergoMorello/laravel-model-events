@@ -1,6 +1,6 @@
 <?php
 
-namespace SME\Laravel\ModelEvents;
+namespace SME\Laravel\Model;
 
 use Illuminate\Database\Eloquent\Builder as LaravelDatabaseBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
@@ -74,7 +74,7 @@ class Builder extends LaravelDatabaseBuilder {
 
 		$delete = parent::delete();
 		
-		$this->emitModelEvent('deleted', false);
+		if ($delete > 0) $this->emitModelEvent('deleted', false);
 		
 		return $delete;
 	}
@@ -90,7 +90,7 @@ class Builder extends LaravelDatabaseBuilder {
 		
 		$update = parent::update($values);
 
-		$this->emitModelEvent('updated', false);
+		if ($update > 0) $this->emitModelEvent('updated', false);
 		
 		return $update;
 	}

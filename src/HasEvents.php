@@ -1,8 +1,10 @@
 <?php
 
-namespace SME\Laravel\ModelEvents;
+namespace SME\Laravel\Model;
 
 /**
+ * Trait allows you to extend the work of life cycle methods
+ * 
  * @method void retrieved(\Illuminate\Events\QueuedClosure|\Closure|string  $callback) Register a retrieved model event with the dispatcher.
  * @method void saving(\Illuminate\Events\QueuedClosure|\Closure|string  $callback) Register a saving model event with the dispatcher.
  * @method void saved(\Illuminate\Events\QueuedClosure|\Closure|string  $callback) Register a saved model event with the dispatcher.

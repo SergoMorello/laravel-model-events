@@ -1,4 +1,12 @@
-## This library allows you to extend the work of life cycle methods
+
+# laravel-model-events
+
+## This library allows you to extend the work of Models life cycle methods in Laravel Framework
+
+### Install:
+```
+composer require sme/laravel-model-life-events
+```
 
 ### For example:
 
@@ -18,7 +26,7 @@ class Posts extends Model
 
 ```
 
-#### For this code, the listener will not work because the delete method is not in the Model class
+#### For this code, the listener will not work because the method calling the deleted event is missing from the Builder class
 
 ```php
 public static function deletePost(int $post_id) {
@@ -30,7 +38,10 @@ public static function deletePost(int $post_id) {
 
 ```php
 public static function deletePost(int $post_id) {
-	return self::find($post_id)->delete();
+	$post = self::find($post_id);
+	if ($post) {
+		return $post->delete();
+	}
 }
 ```
 
@@ -46,3 +57,5 @@ class Posts extends Model
 	...
 
 ```
+
+#### In this case, listeners such as "deleting" or "updated" are always called, and "deleted" or "updated" are called only if the request was successful
