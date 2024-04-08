@@ -58,4 +58,4 @@ class Posts extends Model
 
 ```
 
-#### In this case, listeners such as "deleting" or "updated" are always called, and "deleted" or "updated" are called only if the request was successful
+#### In this case, listeners such as "deleting" or "updating" are always called, and "deleted" or "updated" are called only if the request was successful
